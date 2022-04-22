@@ -1,0 +1,15 @@
+#option nodynamic
+
+#GD
+#curses
+#dbm
+#etc
+#fcntl
+#kconv
+#md5
+#pty
+#sdbm
+#socket
+#tkutil
+#tcltklib
+#gtk
