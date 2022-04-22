@@ -1,0 +1,34 @@
+ripper.o: ripper.c $(hdrdir)/lex.c eventids1.c $(srcdir)/eventids2.c
+
+ripper.c: ripper.y
+	bison -t -v -o$@ ripper.y
+
+ripper.y: $(hdrdir)/parse.y $(srcdir)/tools/preproc.rb
+	$(RUBY) $(srcdir)/tools/preproc.rb $(hdrdir)/parse.y > $@
+
+eventids1.c: $(hdrdir)/parse.y $(srcdir)/tools/generate-eventids1.rb ids1
+	$(RUBY) $(srcdir)/tools/generate-eventids1.rb ids1 > $@
+
+ids1: $(srcdir)/tools/list-parse-event-ids.rb $(hdrdir)/parse.y
+	$(RUBY) $(srcdir)/tools/list-parse-event-ids.rb -a $(hdrdir)/parse.y > $@
+
+ids2: $(srcdir)/tools/list-scan-event-ids.rb $(srcdir)/eventids2.c
+	$(RUBY) $(srcdir)/tools/list-scan-event-ids.rb -a $(srcdir)/eventids2.c > $@
+
+rb: $(srcdir)/lib/ripper/core.rb.in ids1 ids2 $(srcdir)/tools/generate-ripper_rb.rb
+	$(RUBY) $(srcdir)/tools/generate-ripper_rb.rb $(srcdir)/lib/ripper/core.rb.in ids1 ids2 > $(srcdir)/lib/ripper/core.rb
+
+#
+# Entries for only ripper developpers: DO NOT USE
+#
+
+test:
+	$(RUBY) test/check-event-arity.rb $(hdrdir)/parse.y
+	sh test/check-event-coverage.sh
+	$(RUBY) test/check-scanner-event-coverage.rb
+	$(RUBY) test/validate.rb > /dev/null
+	@echo OK
+
+preproc: ripper.E
+ripper.E: ripper.c
+	$(CC) -E $(CPPFLAGS) ripper.c | $(RUBY) $(srcdir)/tools/strip.rb > $@
