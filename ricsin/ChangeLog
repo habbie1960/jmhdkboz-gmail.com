@@ -1,0 +1,46 @@
+Sun Sep 28 20:20:44 2008  Koichi Sasada  <ko1@atdot.net>
+
+	* ricsin/benchmark.rcb: add benchmarks.
+
+Sun Sep 28 19:55:54 2008  Koichi Sasada  <ko1@atdot.net>
+
+	* ricsin/benchmark.rcb: add some benchmarks.
+
+	* ricsin/ricsin.rb: fix to skip strange local name.
+
+	* ricsin/t.rcb: removed.
+
+	* vm.c (null_func): added.
+
+Sat Sep 27 21:40:44 2008  Koichi Sasada  <ko1@atdot.net>
+
+	* compile.c (ricsin_compile): fix to skip __Ccont__ 2nd argument.
+
+Fri Sep 26 13:39:46 2008  Koichi Sasada  <ko1@atdot.net>
+
+	* compile.c, ricsin/ricsin.rb: rename __Cx__ to __Ccont__.
+
+	* ricsin/test.rcb: ditto.
+
+Fri Sep 26 12:53:37 2008  Koichi Sasada  <ko1@atdot.net>
+
+	* ricsin/ricsin.rb: fix to use require_relative.
+
+Fri Sep 26 12:49:52 2008  Koichi Sasada  <ko1@atdot.net>
+
+	* ricsin/ricsin.rb: fix $0 and fix to output ricsin_#{name}.rb.
+
+Wed Sep 24 17:42:30 2008  Koichi Sasada  <ko1@atdot.net>
+
+	* ricsin/test.rcb: add 2 assersions.
+
+Wed Sep 24 17:30:01 2008  Koichi Sasada  <ko1@atdot.net>
+
+	* common.mk: fix ricsin.rb path.
+
+Wed Sep 24 14:47:29 2008  Koichi Sasada  <ko1@atdot.net>
+
+	* ricsin/ricsin.rb: moved from tool/ricsin.rb.
+
+	* ricsin/ricsin.rb: fix to skip string and comment
+	  while preprocessing C source.
